@@ -1,15 +1,16 @@
 import path from 'path';
 require('dotenv').config();
 
+const { DB_CLIENT, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME } = process.env;
 
 module.exports = {
-  client: process.env.DB_CLIENT,
+  client: DB_CLIENT,
   connection: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    port: DB_PORT,
+    database: DB_NAME
   },
   migrations: {
     directory: path.resolve(__dirname, 'src', 'database', 'migrations')

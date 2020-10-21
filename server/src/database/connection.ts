@@ -1,13 +1,16 @@
+require('dotenv').config();
 import knex from 'knex';
 
+const { DB_CLIENT, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME } = process.env;
+
 const connection = knex({
-  client: process.env.DB_CLIENT,
+  client: DB_CLIENT,
   connection: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT),
-    database: process.env.DB_NAME
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    port: Number(DB_PORT),
+    database: DB_NAME
   },
   useNullAsDefault: true
 });
