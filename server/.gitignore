@@ -1,4 +1,6 @@
 # Env
+*.jpeg
+*.jpg
 .env.*
 # Logs
 logs
