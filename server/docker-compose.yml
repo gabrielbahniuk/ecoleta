@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:alpine
+    command: -p 5435
+    ports:
+      - 127.0.0.1:5435:5435
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PG_PORT: ${DB_PORT}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/ecoleta/data
+    restart: always
+    networks:
+      - ecoleta-network
+    container_name: ecoleta-db
+
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 13333:3333
+    volumes:
+      - webapp:/home/node/app
+      - /home/node/app/node_modules
+    env_file:
+      - .env
+    networks:
+      - ecoleta-network
+    container_name: ecoleta-app
+    hostname: ecoleta-app
+
+volumes:
+  pgdata:
+  webapp:
+
+networks:
+  ecoleta-network:
+    driver: bridge

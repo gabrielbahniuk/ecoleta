@@ -1,5 +1,8 @@
+require('dotenv').config();
 import knex from '../database/connection';
 import { Request, Response } from 'express';
+
+const { API_HOSTNAME, API_PORT } = process.env;
 
 class PointsController {
   async create (req: Request, res: Response) {
@@ -62,7 +65,7 @@ class PointsController {
 
     const serializedPoint = {
         ...point,
-        image_url: `https://ecoleta.thegabriel.dev:13333/uploads/${point.image}`
+        image_url: `${API_HOSTNAME}:${API_PORT}/uploads/${point.image}`
       }
 
 
@@ -91,7 +94,7 @@ class PointsController {
       const serializedPoints = points.map(point => {
         return {
           ...point,
-          image_url: `http://thegabriel.dev:13333/uploads/${point.image}`
+          image_url: `${API_HOSTNAME}:${API_PORT}/uploads/${point.image}`
         }
       })
     
