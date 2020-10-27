@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
     ports:
-      - 13333:3333
+      - 127.0.0.1:3330:3330
     volumes:
       - webapp:/home/node/app
       - /home/node/app/node_modules
