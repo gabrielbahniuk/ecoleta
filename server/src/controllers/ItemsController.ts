@@ -11,7 +11,7 @@ class ItemsController {
       return {
         id: item.id,
         title: item.title,
-        image_url: `${API_HOSTNAME}:${API_PORT}/uploads/${item.image}`
+        image_url: `${API_HOSTNAME}/uploads/${item.image}`
       }
     })
     
