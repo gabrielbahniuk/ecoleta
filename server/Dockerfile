@@ -10,7 +10,7 @@ COPY ./package.json ./
 
 COPY . ./
 
-EXPOSE 3333
+EXPOSE 3330
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 
