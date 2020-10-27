@@ -2,7 +2,7 @@ require('dotenv').config();
 import knex from '../database/connection';
 import { Request, Response } from 'express';
 
-const { API_HOSTNAME, API_PORT } = process.env;
+const { API_HOSTNAME } = process.env;
 
 class PointsController {
   async create (req: Request, res: Response) {
@@ -65,9 +65,8 @@ class PointsController {
 
     const serializedPoint = {
         ...point,
-        image_url: `${API_HOSTNAME}:${API_PORT}/uploads/${point.image}`
+        image_url: `${API_HOSTNAME}/uploads/${point.image}`
       }
-
 
     const items = await knex('items')    
     .join('point_items', 'items.id', '=', 'point_items.item_id')
@@ -94,7 +93,7 @@ class PointsController {
       const serializedPoints = points.map(point => {
         return {
           ...point,
-          image_url: `${API_HOSTNAME}:${API_PORT}/uploads/${point.image}`
+          image_url: `${API_HOSTNAME}/uploads/${point.image}`
         }
       })
     
