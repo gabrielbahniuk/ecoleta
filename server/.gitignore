@@ -1,8 +1,12 @@
+# Config
 .editorconfig
 # Env
+.env
+# Images
 *.jpeg
 *.jpg
-.env.*
+*.png
+
 # Logs
 logs
 *.log
