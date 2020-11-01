@@ -2,7 +2,7 @@ require('dotenv').config();
 import knex from '../database/connection';
 import { Request, Response } from 'express';
 
-const { API_HOSTNAME } = process.env;
+const { API_URL } = process.env;
 
 class PointsController {
   async create (req: Request, res: Response) {
@@ -40,14 +40,10 @@ class PointsController {
       const pointItems = items
         .split(',')
         .map((item: string) => Number(item.trim()))
-        .map((item_id: number) => {
+        .filter((item_id: number, index: number, self: Array<Object>) => index === self.indexOf(item_id))
+        .map((item_id: number) => ({ item_id, point_id }))
 
-        return {
-          item_id,
-          point_id
-        }
-      })
-
+      console.log(pointItems);
       await trx('point_items').insert(pointItems);
 
       await trx.commit();
@@ -68,7 +64,7 @@ class PointsController {
 
     const serializedPoint = {
         ...point,
-        image_url: `${API_HOSTNAME}/uploads/${point.image}`
+        image_url: `${API_URL}/uploads/${point.image}`
       }
 
     const items = await knex('items')
@@ -98,13 +94,10 @@ class PointsController {
       const serializedPoints = points.map(point => {
         return {
           ...point,
-          image_url: `${API_HOSTNAME}/uploads/${point.image}`
+          image_url: `${API_URL}/uploads/${point.image}`
         }
       })
-
       return res.json(serializedPoints)
-
-
   }
 }
 
