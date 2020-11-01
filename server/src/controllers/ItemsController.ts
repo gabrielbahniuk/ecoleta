@@ -4,17 +4,15 @@ import { Request, Response } from 'express'
 
 class ItemsController {
   async index (req: Request, res: Response) {
-    const items = await knex('items').select('*');    
-    const serializedItems = items.map(item => {
+    const items = await knex('items').select('*');
+    const serializedItems = items.map(({ id, title, image }) => {
       return {
-        id: item.id,
-        title: item.title,
-        image_url: `${process.env.API_HOSTNAME}/uploads/${item.image}`
+        id,
+        title,
+        image_url: `${process.env.API_URL}/uploads/${image}`
       }
     })
-    
     return res.json(serializedItems);
   }
 }
-
 export default ItemsController;
