@@ -43,7 +43,6 @@ class PointsController {
         .filter((item_id: number, index: number, self: Array<Object>) => index === self.indexOf(item_id))
         .map((item_id: number) => ({ item_id, point_id }))
 
-      console.log(pointItems);
       await trx('point_items').insert(pointItems);
 
       await trx.commit();
