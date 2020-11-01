@@ -16,12 +16,12 @@ export default {
   limits: { fileSize: Number(process.env.API_MAX_UPLOAD_FILESIZE_MB) * 1024 * 1024 },
   fileFilter: function (req: Request, file: Express.Multer.File, cb:any) {
     const allowedMimeTypes = ['.jpg', '.jpeg', '.png','image/png','image/jpg','image/jpeg'];
-    const fileExtension = path.extname(file.originalname).toLowerCase();
-    if (!fileExtension) {
-      return cb(new Error(`The file extension cannot be empty.`), false);
+    const fileMimetype = file.mimetype;
+    if (!fileMimetype) {
+      return cb(new Error(`The mimetype cannot be empty.`), false);
     }
-    if (allowedMimeTypes.indexOf(fileExtension) === -1) {
-      return cb(new Error(`The file extension ${fileExtension} is not accepted.`), false);
+    if (allowedMimeTypes.indexOf(fileMimetype) === -1) {
+      return cb(new Error(`The mimetype ${fileMimetype} is not accepted.`), false);
     }
     cb(null, true)
   }
